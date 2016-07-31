@@ -1,0 +1,54 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{syntax}
+\usepackage{subfiles}
+\usepackage{blindtext}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{soul,color}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{amsmath, amssymb}
+\usepackage{enumerate}
+\usepackage{tikz}\selectlanguage{spanish}
+
+\pagestyle{fancy}
+
+\graphicspath{{images/}{../images/}}
+
+\renewcommand{\labelenumii}{\theenumii}
+\renewcommand{\theenumii}{\theenumi.\arabic{enumii}.}
+
+\rfoot{\thepage}
+
+\begin{document}
+	
+	\begin{titlepage}
+		\centering
+		\vspace{15cm}
+		{\Huge\bfseries Compiler construction for digital computers\par}
+		\vspace{8cm}
+		{\huge David Gries\par}
+		{\Large\itshape Cornell University\par}
+		\vfill
+	\end{titlepage}
+	
+	\section*{\hfil Preface \hfil}
+	\subfile{sections/preface}
+	
+	\newpage
+	
+	\section*{\hfil Table of Contents \hfil}
+	\vspace{1cm}
+	\subfile{sections/toc}
+
+	\section*{\hfil Introduction \hfil}
+	\vspace{1cm}
+	\subfile{sections/introduction}
+	
+	\pagebreak
+
+\end{document}
+
