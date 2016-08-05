@@ -28,14 +28,42 @@
 					(first (cdr xs))))
 )))
 
-(define insert
-	(lambda (xs new old)
+(define insertR
+	(lambda (new old xs)
 		(cond 
 			((null? xs) '())
 			(else
 				(cond
-					((eq? (car xs) old) (cons old (cons new (cdr xs))))
-					(else (cons (car xs) 
-						(insert (cdr xs) new old)))
-)))))
+					((eq? (car xs) old) 
+						(cons 
+							old 
+							(cons new (cdr xs))))
+					(else 
+						(cons 
+							(car xs) 
+							(insertR new old (cdr xs))))))
+)))
 
+(define insertL
+	(lambda (new old xs)
+		(cond 
+			((null? xs) '())
+			(else
+				(cond 
+					((eq? (car xs) old)
+						(cons 
+							new 
+							(cons old (cdr xs)))
+					(else
+						(cons 
+							(car xs) 
+							(insertL new old (cdr xs)))))))
+)))
+
+(define replace
+	(lambda (new old xs)
+		(cond 
+			((null? xs) '())
+			((eq? (car xs) old) (cons new (cdr xs)))
+			(else (cons (car xs) (replace new old (cdr xs))))
+)))

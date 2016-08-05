@@ -57,9 +57,65 @@
 ![](img/third_commandment.png)
 
 ```scheme
-;; The function insert, takes three arguments, a list xs and two 
+;; The function insertR, takes three arguments, a list xs and two 
 ;; atoms old and new. It then builds another list with new inserted
 ;; to the right of the first occurrence of the atom old in the list
 
- 
+;; (insertR 'topping 'fudge '(ice cream with fudge for dessert))
+;; ~ '(ice cream with fudge topping for dessert)
+
+;; (insertR 'jalapeño 'and '(tacos tamales and salsa))
+;; ~ '(tacos tamales and jalapeño salsa)
+
+;; (insertR 'e 'd '(a b c d f g h))
+;; ~ '(a b c d e f g)
+
+(define insertR
+	(lambda (new old xs)
+		(cond 
+			((null? xs) '())
+			(else
+				(cond
+					((eq? (car xs) old) 
+						(cons 
+							old 
+							(cons new (cdr xs))))
+					(else 
+						(cons 
+							(car xs) 
+							(insertR new old (cdr xs))))))
+)))
+
+;; insertL does what is expected
+
+(define insertL
+	(lambda (new old xs)
+		(cond 
+			((null? xs) '())
+			(else
+				(cond 
+					((eq? (car xs) old)
+						(cons 
+							new 
+							(cons old (cdr xs)))
+					(else
+						(cons 
+							(car xs) 
+							(insertL new old (cdr xs)))))))
+)))
+```
+
+```scheme
+;; The function replace, replaces the first occurrence of an atom, for another
+
+(define replace
+	(lambda (new old xs)
+		(cond 
+			((null? xs) '())
+			((eq? (car xs) old) (cons new (cdr xs)))
+			(else (cons (car xs) (replace new old (cdr xs))))
+)))
+
+> (replace 'd 'z '(a b c z e f))
+(a b c d e f)
 ```
