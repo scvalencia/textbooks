@@ -13,7 +13,9 @@
 	(lambda (x xs)
 		(cond 
 			((null? xs) '())
-			((eq? (car xs) x) (cdr xs))
+			((eq? 
+				(car xs) x) 
+					(cdr xs))
 			(else (cons (car xs)
 						(rember x (cdr xs))))
 )))
@@ -66,4 +68,50 @@
 			((null? xs) '())
 			((eq? (car xs) old) (cons new (cdr xs)))
 			(else (cons (car xs) (replace new old (cdr xs))))
+)))
+
+(define replace2
+	(lambda (new old1 old2 xs)
+		(cond 
+			((null? xs) '())
+			((eq? old1 (car xs))
+				(cons new (cdr xs)))
+			((eq? old2 (car xs))
+				(cons new (cdr xs)))
+			(else 
+				(cons 
+					(car xs) 
+					(replace2 
+						new old1 old2 
+						(cdr xs))))
+)))
+
+(define replace22
+	(lambda (new old1 old2 xs)
+		(cond 
+			((null? xs) '())
+			((or 
+				(eq? old1 (car xs)) 
+				(eq? old2 (car xs))) 
+					(cons new (cdr xs)))
+			(else 
+				(cons 
+					(car xs) 
+					(replace22 
+						new old1 old2 
+						(cdr xs))))
+)))
+
+(define multirember
+	(lambda (x xs)
+		(cond
+			((null? xs) '())
+			((eq? (car xs) x)
+				(multirember x (cdr xs)))
+			(else
+				(cons 
+					(car xs) 
+					(multirember 
+						x 
+						(cdr xs))))
 )))

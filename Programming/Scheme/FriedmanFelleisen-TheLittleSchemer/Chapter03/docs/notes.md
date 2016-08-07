@@ -118,4 +118,44 @@
 
 > (replace 'd 'z '(a b c z e f))
 (a b c d e f)
+
+;; The function replace2. replaces either the first occurrence of o1 or the 
+;; first occurrence of o2 by new:
+
+> (replace2 'vanilla 'chocolate 'banana 
+ 	'(banana ice cream with chocolate topping))
+(vanilla ice cream with chocolate topping)
+
+(define replace2
+	(lambda (new old1 old2 xs)
+		(cond 
+			((null? xs) '())
+			((or 
+				(eq? old1 (car xs)) 
+				(eq? old2 (car xs))) 
+					(cons new (cdr xs)))
+			(else 
+				(cons 
+					(car xs) 
+					(replace2 
+						new old1 old2 
+						(cdr xs))))
+)))
+
+;; The function multirember, removes every occurrence of x from xs
+
+(define multirember
+	(lambda (x xs)
+		(cond
+			((null? xs) '())
+			((eq? (car xs) x)
+				(multirember x (cdr xs)))
+			(else
+				(cons 
+					(car xs) 
+					(multirember x (cdr xs))))
+)))
+
+> (multirember 'a '(a b c a a d a f g a))
+(b c d f g)
 ```
